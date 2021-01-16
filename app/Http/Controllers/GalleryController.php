@@ -21,6 +21,7 @@ class GalleryController extends Controller
     public function index()
     {
         $images=$this->objImagem->all();
+
         return view('index')->with([
             'images'=> $images, 
         ]);
@@ -44,7 +45,7 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {   
-        // dd($request->all());
+        //  dd($request->all());
         $image=$request->image;
 
         if($image){
@@ -52,10 +53,18 @@ class GalleryController extends Controller
             $image->move('images', $imageName);
         }
 
+        if(!$request->hidden){
+            $hide = 'on';
+        }else{
+            $hide = 'off';
+        }
+
         $img=$this->objImagem->create([
             'title'=>"images/".$imageName,
             'owner'=>$request->owner,
+            'hidden'=>$hide,
         ]);
+
         if($img){
             return redirect('/');
         }

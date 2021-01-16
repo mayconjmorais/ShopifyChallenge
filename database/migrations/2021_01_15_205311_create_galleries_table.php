@@ -17,6 +17,7 @@ class CreateGalleriesTable extends Migration
             $table->increments('id');
             $table->string('title')->nullable();
             $table->integer('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('hidden');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Gallery</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -36,18 +36,20 @@
         
             <div class="container" id="right">
                 @foreach($images as $img)
-                    <div class="imageContainer">
-                        <div class="box">
-                            <div class="imgbox">
-                                <a target="_blank">
-                                    <img class="img-fluid card-img-top p-2" src="../{{$img->title}}" alt="image">
-                                </a>
+                    @if($img->hidden === 'on')
+                        <div class="imageContainer">
+                            <div class="box">
+                                <div class="imgbox">
+                                    <a target="_blank">
+                                        <img class="img-fluid card-img-top p-2" src="../{{$img->title}}" alt="image">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <p>{{$img->title}}</p>
                             </div>
                         </div>
-                        <div class="content">
-                            <p>{{$img->title}}</p>
-                        </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
         </div>

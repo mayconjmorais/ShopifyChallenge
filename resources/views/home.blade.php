@@ -21,7 +21,9 @@
                             @csrf
                             <input type="file" name="image" required>
                             <input type="submit" name="upload" value="Add">
-                            <input type="hidden" name="owner" value= "{{$user->id}}" >
+                            <input type="hidden" name="owner" value= "{{$user->id}}" ><br>
+                            <input type="checkbox" name="hidden" id="hide" >
+                            <label>Hidden</label>
                         </form>
                     </div>
                 </div>
