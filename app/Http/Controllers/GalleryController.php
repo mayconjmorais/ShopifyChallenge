@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+    private $objImagem;
+
+    public function __construct(){
+        $this->objImagem=new Gallery();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,10 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        $images=$this->objImagem->all();
+        return view('index')->with([
+            'images'=> $images, 
+        ]);
     }
 
     /**
@@ -34,8 +43,22 @@ class GalleryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        // dd($request->all());
+        $image=$request->image;
+
+        if($image){
+            $imageName=$image->getClientOriginalName();
+            $image->move('images', $imageName);
+        }
+
+        $img=$this->objImagem->create([
+            'title'=>"images/".$imageName,
+            'owner'=>$request->owner,
+        ]);
+        if($img){
+            return redirect('/');
+        }
     }
 
     /**
@@ -44,9 +67,12 @@ class GalleryController extends Controller
      * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $gallery)
+    public function show($id)
     {
-        //
+        $img = Gallery::where('id', $id)->firstOrFail();
+        return view('title')->with([
+            'title' => $img,
+        ]);
     }
 
     /**

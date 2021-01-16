@@ -15,6 +15,15 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <div class="form-group row mb-1">
+                        <form action= "{{ route('imagestore') }}" method= "POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="image" required>
+                            <input type="submit" name="upload" value="Add">
+                            <input type="hidden" name="owner" value= "{{$user->id}}" >
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
